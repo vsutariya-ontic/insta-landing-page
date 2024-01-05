@@ -102,9 +102,9 @@ const storyUserList = [
 export const generateStoryData = () => {
     // run some api calls
     return storyUserList;
-}
+};
 
 export const generateSuggestedUsers = () => {
     // run some api calls
     return suggestedUserList;
-}
+};

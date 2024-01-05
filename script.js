@@ -26,6 +26,13 @@ const doc = document.getElementsByTagName('body');
 // list.append(item);
 // console.log('added')
 
+const test = document.getElementById('test');
+test.classList.forEach(item=>{
+    console.log(item);
+})
+// console.log(test.classList);÷
+
+
 import { generateStoryData, generateSuggestedUsers } from "/helper-functions.js";
 const suggestedUserList = generateSuggestedUsers();
 const storyUserList = generateStoryData();
