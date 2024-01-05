@@ -99,6 +99,87 @@ const storyUserList = [
     },
 ];
 
+const postList = [
+    {
+        username: "vkohli_89",
+        timeSincePosted: "3 minutes ago",
+        likeCount: 78,
+        commentCount: 21,
+        caption: "Throwback to an unforgettable vacation. 🌊🏖️"
+    },
+    {
+        username: "john_doe123",
+        timeSincePosted: "2 hours ago",
+        likeCount: 32,
+        commentCount: 15,
+        caption: "Enjoying a beautiful day at the beach! 🌴☀️"
+    },
+    {
+        username: "sara_456",
+        timeSincePosted: "1 day ago",
+        likeCount: 45,
+        commentCount: 28,
+        caption: "Exploring new places and making memories. 🗺️"
+    },
+    {
+        username: "mike_1122",
+        timeSincePosted: "3 days ago",
+        likeCount: 18,
+        commentCount: 10,
+        caption: "Chasing sunsets. 🌅 #NatureLover"
+    },
+    {
+        username: "lisa_321",
+        timeSincePosted: "4 days ago",
+        likeCount: 27,
+        commentCount: 12,
+        caption: "Cooking up a storm in the kitchen! 🍳🔥"
+    },
+    {
+        username: "chris_987",
+        timeSincePosted: "5 days ago",
+        likeCount: 21,
+        commentCount: 8,
+        caption: "Morning run to kickstart the day. 🏃‍♂️ #FitnessGoals"
+    },
+    {
+        username: "olivia_456",
+        timeSincePosted: "1 week ago",
+        likeCount: 36,
+        commentCount: 18,
+        caption: "Lazy Sundays and good books. 📚☕"
+    },
+    {
+        username: "david_789",
+        timeSincePosted: "2 weeks ago",
+        likeCount: 15,
+        commentCount: 6,
+        caption: "Guitar sessions by the fireplace. 🎸🔥"
+    },
+    {
+        username: "julia_456",
+        timeSincePosted: "3 weeks ago",
+        likeCount: 23,
+        commentCount: 10,
+        caption: "Road trip adventures! 🚗🏞️"
+    },
+    {
+        username: "ryan_321",
+        timeSincePosted: "1 month ago",
+        likeCount: 42,
+        commentCount: 25,
+        caption: "Throwback to an unforgettable vacation. 🌊🏖️"
+    },
+    {
+        username: "nancy_789",
+        timeSincePosted: "2 months ago",
+        likeCount: 30,
+        commentCount: 14,
+        caption: "Artistic vibes in the city. 🎨🏙️"
+    },
+];
+
+
 export const generateStoryData = () => {
     // run some api calls
     return storyUserList;
@@ -108,3 +189,8 @@ export const generateSuggestedUsers = () => {
     // run some api calls
     return suggestedUserList;
 };
+
+export const generatePostList = () => {
+    // run api calls and fetch posts
+    return postList;
+}

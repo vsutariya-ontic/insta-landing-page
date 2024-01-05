@@ -26,17 +26,17 @@ const doc = document.getElementsByTagName('body');
 // list.append(item);
 // console.log('added')
 
-const test = document.getElementById('test');
-test.classList.forEach(item=>{
-    console.log(item);
-})
+// const test = document.getElementById('test');
+// test.classList.forEach(item=>{
+//     console.log(item);
+// })
 // console.log(test.classList);÷
 
 
-import { generateStoryData, generateSuggestedUsers } from "/helper-functions.js";
+import { generateStoryData, generateSuggestedUsers, generatePostList } from "/helper-functions.js";
 const suggestedUserList = generateSuggestedUsers();
 const storyUserList = generateStoryData();
-
+const postList = generatePostList();
 const loadSuggestions = (toBeRenderedList) => {
     const suggestionList = document.getElementById('suggestion-list');
     const suggestionDemo = document.getElementById('suggestion-demo');
@@ -67,3 +67,32 @@ const loadStories = (toBeRenderedStories) => {
 
 loadSuggestions(suggestedUserList);
 loadStories(storyUserList);
+
+
+const loadPosts = (toBeRenderedPosts) => {
+    const postList = document.getElementById('post-list');
+    const postDemo = document.getElementById('post-demo');
+    toBeRenderedPosts.forEach(element => {
+        const newPost = postDemo.cloneNode(true);
+        const usernameContent = newPost.querySelectorAll('#username');
+        usernameContent.forEach(item => {
+            item.textContent = element.username;
+        });
+        const likeCountContent = newPost.querySelector('#like-count');
+        likeCountContent.textContent = `${element.likeCount} likes`;
+
+        const timeSincePostedContent = newPost.querySelector('#time-since-posted');
+        timeSincePostedContent.textContent = `~ ${element.timeSincePosted}`;
+
+        const captionContent = newPost.querySelector('#caption');
+        captionContent.textContent = element.caption;
+
+        const commentCountContent = newPost.querySelector('#comment-count');
+        commentCountContent.textContent = `View all ${element.commentCount} comments`;
+
+        postList.appendChild(newPost);
+        postDemo.remove();
+    });
+}
+
+loadPosts(postList);
