@@ -179,7 +179,6 @@ const postList = [
     },
 ];
 
-
 export const generateStoryData = () => {
     // run some api calls
     return storyUserList;

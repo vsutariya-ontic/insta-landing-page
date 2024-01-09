@@ -1,42 +1,9 @@
-const doc = document.getElementsByTagName('body');
-
-// const suggestionObject = document.getElementById('suggestion-demo');
-
-// const suggestionList = document.getElementById('suggestion-list');
-
-// suggestionList.appendChild(suggestionObject);
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     const suggestionObject = document.getElementById('suggestion-demo');
-//     const suggestionList = document.getElementById('suggestion-list');
-//     suggestionList.appendChild();
-// });
-
-// <ul id="list-id">
-//     <li id="item-id">First item</li>
-// </ul>
-
-// const list = document.getElementById('list-id');
-// const item = document.getElementById('item-id');
-// const newItem = item.cloneNode(true);
-// newItem.textContent = 'Second Item';
-// list.appendChild(newItem);
-// console.log(list);
-// console.log(item);
-// list.append(item);
-// console.log('added')
-
-// const test = document.getElementById('test');
-// test.classList.forEach(item=>{
-//     console.log(item);
-// })
-// console.log(test.classList);÷
-
-
 import { generateStoryData, generateSuggestedUsers, generatePostList } from "/helper-functions.js";
+
 const suggestedUserList = generateSuggestedUsers();
 const storyUserList = generateStoryData();
 const postList = generatePostList();
+
 const loadSuggestions = (toBeRenderedList) => {
     const suggestionList = document.getElementById('suggestion-list');
     const suggestionDemo = document.getElementById('suggestion-demo');
@@ -65,10 +32,6 @@ const loadStories = (toBeRenderedStories) => {
     storyDemo.remove();
 };
 
-loadSuggestions(suggestedUserList);
-loadStories(storyUserList);
-
-
 const loadPosts = (toBeRenderedPosts) => {
     const postList = document.getElementById('post-list');
     const postDemo = document.getElementById('post-demo');
@@ -96,3 +59,5 @@ const loadPosts = (toBeRenderedPosts) => {
 }
 
 loadPosts(postList);
+loadSuggestions(suggestedUserList);
+loadStories(storyUserList);
