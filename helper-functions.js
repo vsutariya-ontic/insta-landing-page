@@ -179,17 +179,17 @@ const postList = [
     },
 ];
 
-export const generateStoryData = () => {
+export const generateStoryData = async () => {
     // run some api calls
     return storyUserList;
 };
 
-export const generateSuggestedUsers = () => {
+export const generateSuggestedUsers = async () => {
     // run some api calls
     return suggestedUserList;
 };
 
-export const generatePostList = () => {
+export const generatePostList = async () => {
     // run api calls and fetch posts
     return postList;
 }

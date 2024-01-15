@@ -1,63 +1,162 @@
-import { generateStoryData, generateSuggestedUsers, generatePostList } from "/helper-functions.js";
+// fetch data and show it
+import { generateStoryData, generateSuggestedUsers, generatePostList, } from "/helper-functions.js";
 
-const suggestedUserList = generateSuggestedUsers();
-const storyUserList = generateStoryData();
-const postList = generatePostList();
+document.addEventListener('DOMContentLoaded', async() => {
+  const suggestedUserList = await generateSuggestedUsers();
+  const storyUserList = await generateStoryData();
+  const postList = await generatePostList();
 
+  loadPosts(postList);
+  loadSuggestions(suggestedUserList);
+  loadStories(storyUserList);
+  console.log('dom loaded');
+
+  // console.log(document.querySelectorAll('#suggestion-demo'))
+
+});
+console.log('script');
+// Completed!
 const loadSuggestions = (toBeRenderedList) => {
-    const suggestionList = document.getElementById('suggestion-list');
-    const suggestionDemo = document.getElementById('suggestion-demo');
+  const suggestionList = document.getElementById("suggestion-list");
+  const suggestionDemo = document.getElementById("suggestion-demo");
+  toBeRenderedList.forEach((suggestedUser, index) => {
+    const newSuggestedUser = suggestionDemo.cloneNode(true);
 
-    toBeRenderedList.forEach((suggestedUser) => {
-        const newSuggestedUser = suggestionDemo.cloneNode(true);
-        const userContent = newSuggestedUser.querySelector('#username');
-        const mutualFollowers = newSuggestedUser.querySelector('#mutual-followers');
-        userContent.textContent = suggestedUser.username;
-        mutualFollowers.textContent = `${suggestedUser.mutualFollowers} mutual followers`;
-        suggestionList.appendChild(newSuggestedUser);
-    });
-    suggestionDemo.remove();
+    newSuggestedUser.setAttribute('id', index);
+    const followButton = newSuggestedUser.querySelector('#follow-button');
+    followButton.addEventListener('click', () => {
+      const text = followButton.querySelector('#follow-button-text');
+      if(text.textContent === "Follow"){
+        text.textContent = "Requested";
+      }
+      else{
+        text.textContent = 'Follow';
+      }
+    })
+    newSuggestedUser.querySelector("#username").textContent = suggestedUser.username;
+    newSuggestedUser.querySelector("#mutual-followers").textContent = `${suggestedUser.mutualFollowers} mutual followers`;
+
+    suggestionList.appendChild(newSuggestedUser);
+  });
+  suggestionDemo.remove();
 };
 
 const loadStories = (toBeRenderedStories) => {
-    const storyList = document.getElementById('story-list');
-    const storyDemo = document.getElementById('story-demo');
+  const storyList = document.getElementById("story-list");
+  const storyDemo = document.getElementById("story-demo");
+  // if (storyDemo.getAttribute("key") == "demo-key") {
+  //   console.log("Yeyyyy works!");
+  // }
+  toBeRenderedStories.forEach((element, index) => {
+    const {username, name} = element;
+    const newStoryItem = storyDemo.cloneNode(true);
+
+    newStoryItem.setAttribute('id', index);
+    newStoryItem.querySelector("#username").textContent = username;
     
-    toBeRenderedStories.forEach(element => {
-        const newStoryItem = storyDemo.cloneNode(true);
-        const usernameContent = newStoryItem.querySelector('#username');
-        usernameContent.textContent = element.username;
-        storyList.appendChild(newStoryItem);
-    });
-    storyDemo.remove();
+    storyList.appendChild(newStoryItem);
+  });
+  storyDemo.remove();
+
+  const scrollButtonRight = document.getElementById("scroll-story-right-button");
+  const scrollButtonLeft = document.getElementById("scroll-story-left-button");
+
+  storyList.addEventListener("scroll", () => {
+    if (storyList.scrollLeft > 0) {
+      scrollButtonLeft.removeAttribute("hidden");
+    } else {
+      scrollButtonLeft.setAttribute("hidden", "true");
+    }
+  });
+
+  scrollButtonRight.addEventListener("click", () => {
+    storyList.scrollBy(250, 0);
+  });
+
+  scrollButtonLeft.addEventListener("click", () => {
+    storyList.scrollBy(-250, 0);
+  });
 };
 
 const loadPosts = (toBeRenderedPosts) => {
-    const postList = document.getElementById('post-list');
-    const postDemo = document.getElementById('post-demo');
-    toBeRenderedPosts.forEach(element => {
-        const newPost = postDemo.cloneNode(true);
-        const usernameContent = newPost.querySelectorAll('#username');
-        usernameContent.forEach(item => {
-            item.textContent = element.username;
-        });
-        const likeCountContent = newPost.querySelector('#like-count');
-        likeCountContent.textContent = `${element.likeCount} likes`;
+  const overlay = document.getElementById("overlay");
+  const postList = document.getElementById("post-list");
+  const postDemo = document.getElementById("post-demo");
+  const postOptionsList = postList.querySelector("#post-options-list");
 
-        const timeSincePostedContent = newPost.querySelector('#time-since-posted');
-        timeSincePostedContent.textContent = `~ ${element.timeSincePosted}`;
+  toBeRenderedPosts.forEach((element, index) => {
+    const { username, likeCount, timeSincePosted, caption, commentCount } = element;
+    const newPost = postDemo.cloneNode(true);
 
-        const captionContent = newPost.querySelector('#caption');
-        captionContent.textContent = element.caption;
+    const postOptionsButton = newPost.querySelector("#post-options-button");
+    
 
-        const commentCountContent = newPost.querySelector('#comment-count');
-        commentCountContent.textContent = `View all ${element.commentCount} comments`;
+    newPost.querySelectorAll("#username").forEach((item) => { item.textContent = username; });
+    newPost.querySelector("#like-count").textContent = `${likeCount} likes`;
+    newPost.querySelector("#time-since-posted").textContent = `~ ${timeSincePosted}`;
+    newPost.querySelector("#caption").textContent = caption;
+    newPost.querySelector("#comment-count").textContent = `View all ${commentCount} comments`;
+    
+    // document.body.addEventListener('click', () => {
+    //   postOptionsList.setAttribute('hidden', 'true');
+    // })
 
-        postList.appendChild(newPost);
-        postDemo.remove();
+    postOptionsButton.addEventListener("click", () => {
+      const initialStatus = postOptionsList.style.display;
+      // console.log('clicked');
+      // console.log(initialStatus);
+      if (initialStatus === "" || initialStatus === "none") {
+        postOptionsList.style.display = "flex";
+        overlay.style.display = "block";
+        console.log('got it');
+        // Add a click event listener to the document to close the options list if clicked outside
+        document.addEventListener("click", handleClickOutside);
+      } else {
+        postOptionsList.style.display = "none";
+      }
     });
-}
 
-loadPosts(postList);
-loadSuggestions(suggestedUserList);
-loadStories(storyUserList);
+    // Function to handle clicks outside the options list
+    function handleClickOutside(event) {
+      // Check if the clicked element is outside the options list
+      if (!postOptionsButton.contains(event.target) && !postOptionsList.contains(event.target)) {
+        postOptionsList.style.display = "none";
+        overlay.style.display = "none";
+
+        // Remove the click event listener when the options list is closed
+        document.removeEventListener("click", handleClickOutside);
+      }
+    }
+    // hide options with scroll with below callback
+    // document.addEventListener("scroll", () => {
+    //   postOptionsList.style.display = "none";
+    //   overlay.style.display = "none";
+    // });
+    newPost.setAttribute('id', index);
+    postList.appendChild(newPost);
+  });
+
+  postDemo.remove();
+};
+
+// story scroll buttons
+const storyListScroll = document.getElementById("story-list");
+const scrollButtonRight = document.getElementById("scroll-story-right-button");
+const scrollButtonLeft = document.getElementById("scroll-story-left-button");
+
+storyListScroll.addEventListener("scroll", () => {
+  if (storyListScroll.scrollLeft > 0) {
+    scrollButtonLeft.removeAttribute("hidden");
+  } else {
+    scrollButtonLeft.setAttribute("hidden", "true");
+  }
+});
+
+scrollButtonRight.addEventListener("click", () => {
+  storyListScroll.scrollBy(250, 0);
+});
+
+scrollButtonLeft.addEventListener("click", () => {
+  storyListScroll.scrollBy(-250, 0);
+});
+

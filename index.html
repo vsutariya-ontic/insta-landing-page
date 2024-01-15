@@ -7,9 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white" >
+    <div class="z-10 w-full h-full fixed opacity-50 bg-black hidden" id="overlay">
+    </div>
     <div class="flex">
         <!-- Left Section starts -->
-        <div style="border-right-width: 0.03em;" class="border-l-[0.03em] min-w-72 min-h-screen border-stone-600">
+        <div style="border-right-width: 0.03em;" class="hidden sm:block border-l-[0.03em] min-w-72 min-h-screen border-stone-600">
             <div class="ml-4"><img src="new-logo.webp" alt="Loading..." class="max-h-12  mt-10" /></div>
             <!-- Navbar starts -->
             <div class="px-1 mt-10">
@@ -86,15 +88,15 @@
         <!-- Left section and navbar ends -->
         <!-- Middle section  -->
         <div class="w-screen align-middle items-center justify-items-center">
-            <div class="flex max-w-screen-md justify-around px-9">
+            <div class="flex max-w-[550px] lg:max-w-[700px] xl:max-w-[1000px] justify-around px-16">
                 <!-- story section -->
-                <!-- <div class="z-10 mt-10 -mr-20">
-                    <button>
-                        <img id="story-bar-left-arrow" src="arroww.webp" class="min-w-6 max-w-6 bg-white rounded-full rotate-90 absolute" hidde/>
+                <div class=" mt-10 ml-5" id="scroll-story-left-button-div">
+                    <button id="scroll-story-left-button" hidden>
+                        <img id="story-bar-left-arrow" src="arroww.webp" class="min-w-6 max-w-6 bg-white rounded-full rotate-90 absolute"/>
                     </button>
-                </div> -->
-                <div id="story-list" class="flex space-x-5 justify-start mt-5 max-w-screen-md overflow-auto py-5" >
-                    <div id="story-demo">
+                </div>
+                <div id="story-list" class="flex space-x-5 justify-start mt-5 overflow-auto py-5" >
+                    <div id="story-demo" key="demo-key">
                         <button class="min-w-16 min-h-16 max-w-16 max-h-16 rounded-full justify-center flex bg-red-500" style="background: linear-gradient(125deg, #b000ef, #f27d00);">
                             <img src="profile-pic.webp" class="max-w-16 rounded-full" style="margin-top: 4px; max-width: 3.6rem;"/>
                         </button>
@@ -102,15 +104,26 @@
                     </div>
                     
                 </div>
-                <div class="py-5 z-10 mt-6 -ml-10 -mr-4">
-                    <button>
-                        <img src="arroww.webp" class="min-w-6 max-w-6 bg-white rounded-full -rotate-90 absolute" hidde/>
+                <div class="py-5 mt-6 -ml-10 -mr-5" id="scroll-story-right-button-div">
+                    <button id="scroll-story-right-button">
+                        <img src="arroww.webp" class="min-w-6 max-w-6 bg-white rounded-full -rotate-90 absolute"/>
                     </button>
                 </div>
                 <!-- story section ends -->
             </div>
             <!-- post section -->
+            
             <div id="post-list" class="items-center px-40 mt-9 max-h-screen overflow-y-auto">
+                <div class="z-10 fixed h-[500px] w-[500px] left-[38%] right-[42%] bg-gray-950 rounded-2xl items-start hidden" id="post-options-list" >
+                    <ul class="space-y-2 font-bold max-w-full min-w-full mt-5">
+                        <li class="cursor-pointer max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Info</li>
+                        <li class="cursor-pointer  max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Save</li>
+                        <li class="cursor-pointer max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Not interested</li>
+                        <li class="cursor-pointer  max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Some other option</li>
+                        <li class="cursor-pointer  max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Umm, one more</li>
+                        <li class="absolute bottom-4 max-w-full min-w-full cursor-pointer px-5 py-1 hover:bg-rose-950 hover:bg-opacity-30 rounded-lg text-red-700 flex justify-center">Report</li>
+                    </ul>
+                </div>
                 <div id="post-demo">
                     <div class="justify-between flex">
                         <div class="flex">
@@ -121,9 +134,12 @@
                             <img src="verified.webp" class="min-w-3 max-w-3 min-h-3 max-h-3 rounded-full mt-[0.85rem] ml-1" />
                             <p id="time-since-posted" class="text-[0.9rem] font-bold text-gray-500 mt-[0.6rem] ml-3">~ 12h</p>
                         </div>
-                        <button class="hover:bg-gray-900 rounded-full p-2 pb-2">
-                            <p class="text-2xl -mt-3">...</p>
-                        </button>
+                        <div>
+                            <button class="hover:bg-gray-900 rounded-full p-2 pb-2" id="post-options-button">
+                                <p class="text-2xl -mt-3">...</p>
+                            </button>
+                        </div>
+
                     </div>
                     <div class="mt-5">
                         <div>
@@ -157,7 +173,7 @@
                 </div>
             </div>
         </div>
-        <div style="border-left-width: 0.00em;" class="min-w-80 border-stone-600 sm:">
+        <div style="border-left-width: 0.00em;" class="hidden xl:block min-w-80 border-stone-600 ">
             <!-- Account info and switch -->
             <div class="flex justify-between items-center mt-8 px-4">
                 <div class="flex items-center">
@@ -182,20 +198,20 @@
                     </button>
                 </div>
                 <div id="suggestion-list" class="mt-4">
-                    <div id="suggestion-demo" class="flex justify-between items-center mt-2 px-4">
+                    <div id="suggestion-demo" class="flex justify-between items-center mt-2 px-4" data-key='2'>
                         <div class="flex items-center">
                             <img src="profile-pic.webp" class="max-w-16 rounded-full" style="margin-top: 4px; max-width: 3.6rem;"/>
                             <div class="text-sm items-center ml-4">
                                 <p class="font-bold" id="username">sam_1999</p>
-                                <p class="text-gray-400" id="mutual-followers">10 mutual followers</p>
+                                <p class="text-gray-400 text-xs" id="mutual-followers">10 mutual followers</p>
                             </div>
                         </div>
-                    <div>
-                        <button >
-                            <p class="text-blue-700 font-semibold px-3 py-1 hover:bg-sky-950 rounded-full">Follow</p>
-                        </button>
+                        <div>
+                            <button id="follow-button">
+                                <p class="text-blue-700 font-semibold px-3 py-1 hover:bg-sky-950 rounded-full" id="follow-button-text">Follow</p>
+                            </button>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
