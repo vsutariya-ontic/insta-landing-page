@@ -1,5 +1,5 @@
 // fetch data and show it
-import { generateStoryData, generateSuggestedUsers, generatePostList, } from "/helper-functions.js";
+import { generateStoryData, generateSuggestedUsers, generatePostList, } from "/public/js/helper-functions.js";
 
 document.addEventListener('DOMContentLoaded', async() => {
   const suggestedUserList = await generateSuggestedUsers();
