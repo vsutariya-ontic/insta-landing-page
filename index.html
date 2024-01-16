@@ -5,7 +5,7 @@
     <meta name="viewport" content="width='device-width', initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+	<link rel="stylesheet" type="text/css" href="public/css/styles.css"></head>
 <body class="bg-black text-white" >
     <div class="z-10 w-full h-full fixed opacity-50 bg-black hidden" id="overlay">
     </div>
@@ -62,7 +62,6 @@
                         <button class="hover:bg-zinc-800 rounded-lg min-w-full min-h-12 px-4">
                             <div class="flex space-x-4">
                                 <svg aria-label="Notifications" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Notifications</title><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path></svg>
-                                <!-- <svg aria-label="Notifications" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Notifications</title><path d="M17.075 1.987a5.852 5.852 0 0 0-5.07 2.66l-.008.012-.01-.014a5.878 5.878 0 0 0-5.062-2.658A6.719 6.719 0 0 0 .5 8.952c0 3.514 2.581 5.757 5.077 7.927.302.262.607.527.91.797l1.089.973c2.112 1.89 3.149 2.813 3.642 3.133a1.438 1.438 0 0 0 1.564 0c.472-.306 1.334-1.07 3.755-3.234l.978-.874c.314-.28.631-.555.945-.827 2.478-2.15 5.04-4.372 5.04-7.895a6.719 6.719 0 0 0-6.425-6.965Z"></path></svg> -->
                                 <a>Notifications</a>
                             </div>
                         </button>
@@ -92,13 +91,13 @@
                 <!-- story section -->
                 <div class=" mt-10 ml-5" id="scroll-story-left-button-div">
                     <button id="scroll-story-left-button" hidden>
-                        <img id="story-bar-left-arrow" src="arroww.webp" class="min-w-6 max-w-6 bg-white rounded-full rotate-90 absolute"/>
+                        <img id="story-bar-left-arrow" src="public/images/arroww.webp" class="min-w-6 max-w-6 bg-white rounded-full rotate-90 absolute"/>
                     </button>
                 </div>
                 <div id="story-list" class="flex space-x-5 justify-start mt-5 overflow-auto py-5" >
                     <div id="story-demo" key="demo-key">
                         <button class="min-w-16 min-h-16 max-w-16 max-h-16 rounded-full justify-center flex bg-red-500" style="background: linear-gradient(125deg, #b000ef, #f27d00);">
-                            <img src="public/images/profile-pic.webp" class="max-w-16 rounded-full" style="margin-top: 4px; max-width: 3.6rem;"/>
+							<img src="public/images/profile-pic.webp" class="max-w-16 rounded-full" style="margin-top: 4px; max-width: 3.6rem;"/>
                         </button>
                         <p class="text-xs mt-2" id="username">vatsal_1133</p>
                     </div>
@@ -113,21 +112,22 @@
             </div>
             <!-- post section -->
             
-            <div id="post-list" class="items-center px-40 mt-9 max-h-screen overflow-y-auto">
+            <div id="post-list" class="relative items-center px-40 mt-9 max-h-screen overflow-y-auto space-y-10">
                 <div class="z-10 fixed h-[500px] w-[500px] left-[38%] right-[42%] bg-gray-950 rounded-2xl items-start hidden" id="post-options-list" >
                     <ul class="space-y-2 font-bold max-w-full min-w-full mt-5">
-                        <li class="cursor-pointer max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Info</li>
-                        <li class="cursor-pointer  max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Save</li>
-                        <li class="cursor-pointer max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Not interested</li>
-                        <li class="cursor-pointer  max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Some other option</li>
-                        <li class="cursor-pointer  max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center">Umm, one more</li>
-                        <li class="absolute bottom-4 max-w-full min-w-full cursor-pointer px-5 py-1 hover:bg-rose-950 hover:bg-opacity-30 rounded-lg text-red-700 flex justify-center">Report</li>
+                        <button class="max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center"><li>Info</li></button>
+                        <button class="max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center"><li>Save</li></button>
+                        <button class="max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center"><li>Not interested</li></button>
+                        <button class="max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center"><li>Some other option</li></button>
+                        <button class="max-w-full min-w-full px-5 py-1 hover:bg-gray-700 hover:bg-opacity-30 rounded-lg flex justify-center"><li>Umm, one more</li></button>
+                        <button id="report-button" class="absolute bottom-4 max-w-full min-w-full px-5 py-1 hover:bg-rose-950 hover:bg-opacity-30 rounded-lg text-red-700 flex justify-center"><li>Report</li></button>
                     </ul>
                 </div>
-                <div id="post-demo">
+                <div id="post-demo" class="hidden border-b-[0.5px] border-gray-600">
                     <div class="justify-between flex">
                         <div class="flex">
                             <img src="public/images/profile-pic.webp" class="min-w-7 max-w-7 rounded-full mt-1" />
+                            <!-- <img src="https://random.imagecdn.app/500/150" class="min-w-7 max-w-7 rounded-full mt-1" /> -->
                             <button class="text-[0.9rem] font-bold mt-1 ml-3 hover:underline">
                                 <p id="username" >vkohli_09</p>
                             </button>
@@ -141,16 +141,21 @@
                         </div>
 
                     </div>
-                    <div class="mt-5">
-                        <div>
-                            <img src="public/images/post.webp" class="min-w-full rounded-md" />
+                    <div class="mt-3 ">
+                        <div class="relative">
+							<div id="double-tap-area" class="absolute flex justify-center items-center w-full h-full select-none">
+								<svg xmlns="http://www.w3.org/2000/svg" id="big-like-icon" class="opacity-0 transition duration-1000" height="26" width="26" fill="red" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+							</div>
+                            <img src="public/images/post.webp" id="post-picture" class="min-w-full rounded-md" />
                         </div>
                         <div>
                             <div class="flex mt-5 space-x-2 justify-start">
-                                <button>
-                                    <svg aria-label="Like" class="x1lliihq x1n2onr6 xyb1xck" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Like</title><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path></svg>
+                                <button id='like-button' class="max-w-fit">
+									<svg xmlns="http://www.w3.org/2000/svg" id="liked" class="opacity-100 hidden transition duration-1000" height="26" width="26" fill="red" viewBox="0 0 500 500"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" id="not-liked" class="transition duration-1000 " height="26" width="26" fill="white" width="16" viewBox="0 0 500 500"><path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
+                                    <!-- <svg aria-label="Like" class="x1lliihq x1n2onr6 xyb1xck" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Like</title><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path></svg> -->
                                 </button>
-                                <button>
+                                <button id="comment-icon">
                                     <svg aria-label="Comment" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Comment</title><path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg>
                                 </button>
                                 <button>
@@ -164,8 +169,23 @@
                                     <p id="caption"> Here comes the capion!😁😁</p>
                                 </div>
                                 <div class="text-gray-500">
-                                    <button><p class="hover:underline" id="comment-count">View all 578 comments</p></button> <br>
-                                    <button><p class="text-xs">Add a comment...</p></button>
+                                    <button id="view-comments" class="inline-block"><p class="hover:underline" id="comment-count">View all 578 comments</p></button>
+                                    <button id="hide-comments" class="hidden"><p class="hover:underline" id="comment-count">Hide the comments</p></button>
+                                    <br>
+                                    <div class="flex justify-between space-x-5 space-y-2 mb-2 items-center">
+                                        <input type="text" id="add-comment" placeholder="Add a comment..." class="bg-transparent w-full text-xs focus:border-0 focus:px-2 focus:py-2 rounded-lg border-0" />
+                                        <!-- <div contenteditable="true" data-placeholder="Add a comment..." id="add-comment" class="bg-transparent w-full text-xs focus:border-0 focus:px-2 focus:py-2 rounded-lg border-0" > </div> -->
+                                        <button id="post-comment" class="text-blue-600"> Post </button>
+                                    </div>
+                                </div>
+                                <div id="comment-box" class="hidden max-h-32 overflow-auto">
+                                    <ul id="comment-list" >
+                                        <li class="text-[0.85rem] items-center space-x-2 mt-2 hidden" id="comment-demo">
+                                            <img src="public/images/profile-pic.webp" class="min-w-7 max-w-7 rounded-full" />
+                                            <span class="font-bold" id="username">username</span>
+                                            <span id="the-comment">This is the comment!</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

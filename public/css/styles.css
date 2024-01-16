@@ -1,0 +1,36 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes singleHeartBeat{
+  0% {
+    transform: scale(1); /* Normal size */
+  }
+  50% {
+    transform: scale(1.3); /* Scaled to 1.5 times */
+  }
+  100% {
+    transform: scale(1); /* Back to normal size */
+  }
+}
+
+@keyframes onImageSingleHeartBeat {
+  0% {
+    transform: scale(0); /* Normal size */
+    opacity: 0;
+  }
+  50% {
+    transform: scale(10); /* Scaled to 1.5 times */
+    opacity: 100%;
+  }
+  100% {
+    transform: scale(0); /* Back to normal size */
+    opacity: 0;
+  }
+}
+
+
+canvas {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
