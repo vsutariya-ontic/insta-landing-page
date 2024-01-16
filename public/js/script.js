@@ -7,30 +7,53 @@ import {
   addCommentToPost,
   reportPost,
 } from "/public/js/helper-functions.js";
+
+import NodeMaker from "/public/js/NodeMaker.js";
+
 const randomImageURL = "public/images/post.webp";
 const loggedInUsername = "vatsal_1133";
+
+const postList = document.getElementById("post-list");
+const postDemo = document.getElementById("post-demo");
+const postOptionsList = document.getElementById("post-options-list");
+const storyList = document.getElementById("story-list");
+const storyDemo = document.getElementById("story-demo");
+const scrollStoryRightButton = document.getElementById(
+  "scroll-story-right-button"
+);
+const scrollStoryLeftButton = document.getElementById(
+  "scroll-story-left-button"
+);
+const suggestionList = document.getElementById("suggestion-list");
+const suggestionDemo = document.getElementById("suggestion-demo");
+const overlay = document.getElementById("overlay");
+const reportButton = document.getElementById("report-button");
+
 document.addEventListener("DOMContentLoaded", async () => {
   const suggestedUserList = await generateSuggestedUsers();
   const storyUserList = await generateStoryData();
-  const postList = await generatePostList();
+  const posts = await generatePostList();
 
-  loadPosts(postList);
-  loadSuggestions(suggestedUserList);
-  loadStories(storyUserList);
-  console.log("dom loaded");
-  console.log(document.getElementById("post-list").children);
-  // console.log(document.querySelectorAll('#suggestion-demo'))
+  renderPosts(posts);
+  renderSuggestedUsers(suggestedUserList);
+  renderStories(storyUserList);
+
+  const testNode = NodeMaker.getButtons.comment();
+  console.log(testNode);
+  const testThis = document.getElementById("test-this");
+  console.log(testThis);
+  testThis.append(testNode);
 });
 
-console.log("script");
-// Completed!
-const loadSuggestions = (toBeRenderedList) => {
-  const suggestionList = document.getElementById("suggestion-list");
-  const suggestionDemo = document.getElementById("suggestion-demo");
-  toBeRenderedList.forEach((suggestedUser, index) => {
-    const newSuggestedUser = suggestionDemo.cloneNode(true);
+const renderSuggestedUsers = (suggestions) => {
+  suggestions.forEach((suggestedUser, index) => {
+    const newSuggestedUser = NodeMaker.createSuggestedUser({
+      username: suggestedUser.username,
+      mutualFollowersCount: suggestedUser.mutualFollowersCount,
+      index: index,
+    });
+    suggestionList.appendChild(newSuggestedUser);
 
-    newSuggestedUser.setAttribute("id", index);
     const followButton = newSuggestedUser.querySelector("#follow-button");
     followButton.addEventListener("click", () => {
       const text = followButton.querySelector("#follow-button-text");
@@ -40,79 +63,55 @@ const loadSuggestions = (toBeRenderedList) => {
         text.textContent = "Follow";
       }
     });
-    newSuggestedUser.querySelector("#username").textContent =
-      suggestedUser.username;
-    newSuggestedUser.querySelector(
-      "#mutual-followers"
-    ).textContent = `${suggestedUser.mutualFollowers} mutual followers`;
-
-    suggestionList.appendChild(newSuggestedUser);
   });
   suggestionDemo.remove();
 };
 
-const loadStories = (toBeRenderedStories) => {
-  const storyList = document.getElementById("story-list");
-  const storyDemo = document.getElementById("story-demo");
-  // if (storyDemo.getAttribute("key") == "demo-key") {
-  //   console.log("Yeyyyy works!");
-  // }
-  toBeRenderedStories.forEach((element, index) => {
-    const { username, name } = element;
-    const newStoryItem = storyDemo.cloneNode(true);
-
-    newStoryItem.setAttribute("id", index);
-    newStoryItem.querySelector("#username").textContent = username;
-
-    storyList.appendChild(newStoryItem);
+const renderStories = (stories) => {
+  stories.forEach((element, index) => {
+    const newStory = NodeMaker.createStory({
+      username: element.username,
+      index: index,
+    });
+    storyList.appendChild(newStory);
   });
   storyDemo.remove();
 
-  const scrollButtonRight = document.getElementById(
-    "scroll-story-right-button"
-  );
-  const scrollButtonLeft = document.getElementById("scroll-story-left-button");
-
   storyList.addEventListener("scroll", () => {
     if (storyList.scrollLeft > 0) {
-      scrollButtonLeft.removeAttribute("hidden");
+      scrollStoryLeftButton.removeAttribute("hidden");
     } else {
-      scrollButtonLeft.setAttribute("hidden", "true");
+      scrollStoryLeftButton.setAttribute("hidden", "true");
     }
   });
 
-  scrollButtonRight.addEventListener("click", () => {
+  scrollStoryRightButton.addEventListener("click", () => {
     storyList.scrollBy(250, 0);
   });
 
-  scrollButtonLeft.addEventListener("click", () => {
+  scrollStoryLeftButton.addEventListener("click", () => {
     storyList.scrollBy(-250, 0);
   });
 };
 
-const loadPosts = async (toBeRenderedPosts) => {
-  const overlay = document.getElementById("overlay");
-  const postList = document.getElementById("post-list");
-  const postDemo = document.getElementById("post-demo");
-  const postOptionsList = postList.querySelector("#post-options-list");
+const renderPosts = async (posts) => {
+  // const emptyList = async () => {
+  //   let counter = 0;
+  //   console.log(postList.children);
+  //   postList.childNodes.forEach((item) => {
+  //     console.log(item["id"]);
+  //     if (item.id !== "post-demo" && item.id !== "post-options-list") {
+  //       item.remove();
+  //       counter++;
+  //     } else {
+  //       console.log(item);
+  //     }
+  //   });
+  //   console.log(counter);
+  // };
+  // await emptyList();
 
-  const emptyList = async () => {
-    let counter = 0;
-    console.log(postList.children);
-    postList.childNodes.forEach((item) => {
-      console.log(item["id"]);
-      if (item.id !== "post-demo" && item.id !== "post-options-list") {
-        item.remove();
-        counter++;
-      } else {
-        console.log(item);
-      }
-    });
-    console.log(counter);
-  };
-  await emptyList();
-
-  toBeRenderedPosts.forEach((element, index) => {
+  posts.forEach((element, index) => {
     const { username, likeCount, timeSincePosted, caption, commentCount } =
       element;
     const newPost = postDemo.cloneNode(true);
@@ -264,7 +263,7 @@ const loadPosts = async (toBeRenderedPosts) => {
       }, 1000);
       bigLikeIcon.style.animation = "";
     });
-    newPost.setAttribute("id", index);
+    // newPost.setAttribute("id", index);
     // console.log(index);
     postList.appendChild(newPost);
   });
@@ -273,25 +272,18 @@ const loadPosts = async (toBeRenderedPosts) => {
 };
 
 const loadComments = async (index) => {
-  const postList = await generatePostList();
-  const postListElement = document.getElementById("post-list");
-  const targetPost = postListElement.children[index + 2];
-  // console.log("here comes target post");
-  // console.log(targetPost);
-  // const commentBox = targetPost.querySelector("#comment-box");
+  const posts = await generatePostList();
+  const targetPost = postList.children[index + 2];
   const commentList = targetPost.querySelector("#comment-list");
   const commentDemo = targetPost.querySelector("#comment-demo");
-  // console.log(commentList.childNodes);
   commentList.childNodes.forEach((item) => {
     if (item.localName === "li" && item.id !== "comment-demo") {
       item.remove();
     }
   });
-  postList[index]["comments"].forEach(({ username, val }, index) => {
+  posts[index]["comments"].forEach(({ username, val }, index) => {
     console.log(username, val);
-    // counter++;
     const newComment = commentDemo.cloneNode(true);
-    // newComment.style.display = "block";
     newComment.querySelector("#username").textContent = username;
     newComment.querySelector("#the-comment").textContent = val;
     newComment.setAttribute("id", index);
@@ -300,46 +292,36 @@ const loadComments = async (index) => {
   });
 };
 // story scroll buttons
-const storyListScroll = document.getElementById("story-list");
-const scrollButtonRight = document.getElementById("scroll-story-right-button");
-const scrollButtonLeft = document.getElementById("scroll-story-left-button");
 
-storyListScroll.addEventListener("scroll", () => {
-  if (storyListScroll.scrollLeft > 0) {
-    scrollButtonLeft.removeAttribute("hidden");
+storyList.addEventListener("scroll", () => {
+  if (storyList.scrollLeft > 0) {
+    scrollStoryLeftButton.removeAttribute("hidden");
   } else {
-    scrollButtonLeft.setAttribute("hidden", "true");
+    scrollStoryLeftButton.setAttribute("hidden", "true");
   }
 });
 
-scrollButtonRight.addEventListener("click", () => {
-  storyListScroll.scrollBy(250, 0);
+scrollStoryRightButton.addEventListener("click", () => {
+  storyList.scrollBy(250, 0);
 });
 
-scrollButtonLeft.addEventListener("click", () => {
-  storyListScroll.scrollBy(-250, 0);
+scrollStoryLeftButton.addEventListener("click", () => {
+  storyList.scrollBy(-250, 0);
 });
 
-const reportButton = document.getElementById("report-button");
-const postOptionsList = document.getElementById("post-options-list");
-const overlay = document.getElementById("overlay");
 async function handleReportButtonClick() {
-  console.log("report clicked");
   this.isReported = true;
   postOptionsList.style.display = "none";
   overlay.style.display = "none";
   const lp = await generatePostList();
   console.log(lp);
-  const validPosts = lp.filter((item) => item.isReported !== true);
-  loadPosts(lp);
+  renderPosts(lp);
 }
-
-// let boundedReportHandler = () => {
-//   console.log("initial");
-// };
-// reportButton.addEventListener("click", () => {
-//   this.isReported = true;
-//   postOptionsList.style.display = "none";
+// const testNode = NodeMaker.createSuggestedUser({
+//   username: "usernamafe",
+//   mutualFollowersCount: 20,
+//   index: 6,
 // });
-
-// reportButton.addEventListener("click", boundedReportHandler);
+// const testNode = NodeMaker.createSuggestedUser();
+// const testNode2 = NodeMaker.createSuggestedUser();
+// suggestionList.appendChild(testNode2);
